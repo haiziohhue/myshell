@@ -98,6 +98,7 @@ if ! command -v zsh &>/dev/null; then
 fi
 
 # build
+sudo apt-get update
 
 if install_nvm == "y"; then
     chmod +x ~/myshell/install/node.sh
