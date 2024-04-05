@@ -18,4 +18,4 @@ sudo fc-cache -f -v
 # 清理临时文件
 rm -rf $install_path
 
-echo "Fira Code和HarmonyOS-Sans字体安装完成！"
+echo "Fira Code,HarmonyOS-Sans installed successfully."

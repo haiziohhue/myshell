@@ -1,17 +1,25 @@
 #!/bin/bash
-# Download and extract Go binary
+echo "Starting Golang environment installation..."
 cd /usr/src
-wget https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
+url="https://golang.org/dl/go$version.linux-amd64.tar.gz"
 
-# Set GOROOT and GOPATH environment variables
+wget -O go.tar.gz $url
+sudo tar -C /usr/local -xzf go.tar.gz
+
+$version_go $proxy_go $install_gotools
 echo 'export GOROOT=/usr/local/go' | sudo tee -a /etc/profile
+
 mkdir $HOME/go
 
-# Verify the installation
-echo "export GOPATH=$HOME/go" >> $CONFIG_FILE
-echo "export GOPROXY=http://goproxy.cn" >> $CONFIG_FILE
-echo "export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin" >> $CONFIG_FILE
-echo "export GOROOT=/usr/local/go" >> $CONFIG_FILE
+echo "export GOPATH=$HOME/go" >>$CONFIG_FILE
+echo "export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin" >>$CONFIG_FILE
+echo "export GOROOT=/usr/local/go" >>$CONFIG_FILE
+if "$proxy_go"== "y"; then
+    echo "export GOPROXY=http://goproxy.cn" >>$CONFIG_FILE
+fi
 
-echo "golang installation successful. "
+if "$install_gotools"=="y"; then
+    go install golang.org/x/tools/cmd/goimports@latest
+fi
+
+echo "Golang environment installation completed."
