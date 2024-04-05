@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # 检查传入的参数是否为 JDK 17 或 JDK 21
 if [ "$JDK_VERSION" == "17" ]; then
